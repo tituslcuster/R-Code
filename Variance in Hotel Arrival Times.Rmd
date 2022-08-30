@@ -1,0 +1,73 @@
+---
+title: "Varience in Hotel Arrival Times"
+author: "Titus"
+date: "`8/25/2022`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The data comes from a data package that I worked with during my coursework related to the Google Data Anlytics Certificate on Coursera.
+
+If you would like to download the data you can find it [here](https://d18ky98rnyall9.cloudfront.net/GL0bk8O2Sja9G5PDtko2uQ_31e445d7ca64417eb45aeaa08ec90bf1_hotel_bookings.csv?Expires=1661644800&Signature=Rwm0AmhVwiAih3rGkTgoL4wL1n0KcLaeA2fQ8UlHss0MZx3uzSA2It1hqWtjcyVjmuMjeewTB3Km3Kc7LhjDRHc6DNGCZ75h-Mb44sId11Ixh4KAya65er19PvFlkcBgcgEKe0JAmo1LxX9YXwO~VK3u0M~z6ni~Cib1A02c4hg_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A).
+
+```{r Packages, echo=TRUE, message=FALSE, warning=FALSE, results='hide'}
+library(ggplot2)
+library(tidyverse)
+```
+
+### Project Data Frames
+```{r Data Frames, results='hide'} 
+hotel_bookings <- read.csv('./hotel_bookings_copy.csv')
+
+filtered_2017 <- hotel_bookings %>% 
+  filter(hotel_bookings$arrival_date_year=='2017')
+
+filtered_2015 <- hotel_bookings %>% 
+  filter(hotel_bookings$arrival_date_year=='2015')
+
+filtered_2016 <- hotel_bookings %>% 
+  filter(hotel_bookings$arrival_date_year=='2016')
+```
+
+
+# **Objective: Variance in Hotel Arrival Time**
+  In this analysis I will be exploring the variance in hotel booking   activity as it relates to number of arrivals throughout a given      year categorized by month. By examining these graphs it would give   insight into yearly booking and arrival trends.
+
+#### We will be using hotel data (hotel_bookings) to build a bar chart
+  Below is a version displaying an overall summary of 2015-2017
+``` {r}
+ggplot(data=hotel_bookings) +
+  geom_bar(mapping=aes(x=arrival_date_month,fill=hotel))+
+  labs(title='Variance in Hotel Arrival Times',
+       subtitle='2015 - 2017')+
+  theme(axis.text.x=element_text(angle=45)) 
+```
+
+We now create values for each new plot based on the data frames we created above.
+``` {r}
+ggplot(data=filtered_2015) +
+  geom_bar(mapping=aes(x=arrival_date_month,fill=hotel))+
+  labs(title='Variance in Hotel Arrival Times',
+       subtitle='For the Year: 2015')+
+  theme(axis.text.x=element_text(angle=45))
+
+ggplot(data=filtered_2016) +
+  geom_bar(mapping=aes(x=arrival_date_month,fill=hotel))+
+  labs(title='Variance in Hotel Arrival Times',
+       subtitle='For the Year: 2016')+
+  theme(axis.text.x=element_text(angle=45))
+
+ggplot(data=filtered_2017) +
+  geom_bar(mapping=aes(x=arrival_date_month,fill=hotel))+
+  labs(title='Variance in Hotel Arrival Times',
+       subtitle='For the Year: 2017')+
+  theme(axis.text.x=element_text(angle=45))
+```
+
+### Results
+Compared to 2016, which had data reported throughout the entire year, 2017 and 2015  had an insufficient amount of data to give a holistic picture of trends. As a result, 2016 was the only year that provided helpful analysis at the overview of a year, but monthly comparisons of August and July (the only months shared across all three years) would be also be a useful point of further examination.
+
+

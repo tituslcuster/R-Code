@@ -1,6 +1,8 @@
 #In this script I will be exploring the variance in activity as it
 #relates to arrivals throughout a given year
 
+read.csv(hotel_bookings)
+?read.csv
 #We need to filter our data into a single year
 filtered_2017 <- hotel_bookings %>% 
   filter(hotel_bookings$arrival_date_year=='2017')
@@ -53,3 +55,5 @@ ggplot(data=hotel_bookings)+
   labs(title='Variance in Hotel Arrival Times')+
   theme(axis.text.x=element_text(angle=90))+
   facet_wrap(~arrival_date_year,vars(class2))
+
+
